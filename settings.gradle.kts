@@ -1,2 +1,1 @@
-rootProject.name = "GSDecoder"
-
+rootProject.name = "BchCodes"
