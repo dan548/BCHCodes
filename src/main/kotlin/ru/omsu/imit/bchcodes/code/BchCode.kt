@@ -163,7 +163,7 @@ abstract class BchCode(first: Int, t: Int, type: CodeType) {
         val positions : MutableList<Int> = mutableListOf()
         while (locatorFound < nu) {
             if (lambdaPolynomial.evalPolynomial(field.raiseToThePower(alpha, pow)) == GF2Polynomial()) {
-                positions.add((codeLength - pow) % 15)
+                positions.add((codeLength - pow) % codeLength)
                 locatorFound++
             }
             pow++
