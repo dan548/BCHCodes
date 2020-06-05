@@ -321,6 +321,7 @@ class Char2GaloisField(k: Int) {
         return TwoVariableGF2Polynomial(map)
     }
 
+    // +
     fun raiseToThePower(polynomial : GF2Polynomial, power : Int): GF2Polynomial {
         if (polynomial.degree < pow) {
             if (power == 1 || polynomial.degree == -1) return polynomial

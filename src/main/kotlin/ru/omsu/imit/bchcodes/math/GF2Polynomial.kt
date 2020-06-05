@@ -24,6 +24,8 @@ class GF2Polynomial {
             }
             return g
         }
+        val ZERO = GF2Polynomial()
+        val ONE = GF2Polynomial(0)
     }
 
     private var polynomial : BigInteger
@@ -33,17 +35,10 @@ class GF2Polynomial {
         }
     var degree : Int
 
-    constructor(vararg powers : Int) {
-        polynomial = BigInteger("0")
-        if (powers.any { it < 0 }) throw PolynomialException("Negative powers don't exist!")
-        for (power in powers) {
-            if (polynomial.testBit(power)) throw PolynomialException("Repeated powers!") else polynomial = polynomial.setBit(power)
-        }
-        degree = polynomial.bitLength() - 1
-    }
+    constructor(vararg powers : Int) : this(powers.toList())
 
     constructor(powers : List<Int>) {
-        polynomial = BigInteger("0")
+        polynomial = BigInteger.ZERO
         if (powers.any { it < 0 }) throw PolynomialException("Negative powers don't exist!")
         for (power in powers) {
             if (polynomial.testBit(power)) throw PolynomialException("Repeated powers!") else polynomial = polynomial.setBit(power)
@@ -93,7 +88,13 @@ class GF2Polynomial {
         return GF2Polynomial(list)
     }
 
+    fun getPowerCoeff(power : Int) = polynomial.testBit(power)
+
     fun printPolynomial() {
+        print(this.toString())
+    }
+
+    override fun toString(): String {
         val list = ArrayList<String>()
         for (i in degree downTo 2) {
             if (getPowerCoeff(i)) {
@@ -106,14 +107,12 @@ class GF2Polynomial {
         if (getPowerCoeff(0)) {
             list.add("1")
         }
-        if (list.isEmpty()) {
-            print("0")
+        return if (list.isEmpty()) {
+            "0"
         } else {
-            print(list.joinToString(" + "))
+            list.joinToString(" + ")
         }
     }
-
-    fun getPowerCoeff(power : Int) = polynomial.testBit(power)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

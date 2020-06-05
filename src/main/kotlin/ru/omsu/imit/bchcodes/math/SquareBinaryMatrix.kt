@@ -6,7 +6,7 @@ import java.util.*
 class SquareBinaryMatrix {
 
     private val matrix = BitSet()
-    private val size : Int
+    val size : Int
 
     companion object {
         fun identityMatrix(size : Int) : SquareBinaryMatrix {
@@ -19,6 +19,7 @@ class SquareBinaryMatrix {
     }
 
     constructor(size : Int) {
+        if (size <= 0) throw MatrixException("Bad size")
         this.size = size
     }
 
@@ -123,4 +124,21 @@ class SquareBinaryMatrix {
             this[sumTo, t] = this[sumTo, t].xor(this[rowToAdd, t])
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as SquareBinaryMatrix
+
+        if (matrix != other.matrix) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return matrix.hashCode()
+    }
+
+
 }
